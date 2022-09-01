@@ -1,0 +1,59 @@
+.flex-container {
+    display: flex;
+    background-image: url(/imgs/vacina-background.jpg);
+    flex-direction: column;
+    align-content: space-around;
+    
+    
+}
+
+.flex-header {
+    position: absolute;
+    left: 0;
+    top: 0;
+    display: flex;
+    background-color: #8FE1D9;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    height: 87px;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    color: #419ED7;
+    font-size: 48px;
+}
+
+.seringa {
+    width: 50px;
+    height: 50px;
+    margin-right: 16px;
+}
+
+.flex-button{
+    margin-right: 17px;
+}
+
+.BotaoTenhoConta {
+    width: 198px;
+    height: 52px;
+    box-sizing: border-box;
+    color: white;
+    background-color: #419ED7;
+    border: none;
+    font-size: 24px;
+}
+
+.flex-main {
+    position: absolute;
+    left: 0;
+    top: 87px;
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    
+}
