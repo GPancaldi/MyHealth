@@ -32,7 +32,7 @@
 }
 
 .flex-main {
-    border: 1px solid black;
+    
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,16 +40,18 @@
     height: 250px;
     margin-top: 330px;
     
+    
 }
 
 .form {
-    border: 1px solid black;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     height: 200px;
     width: 300px;
     color: white;
+    font-size: 36px;
 }
 
 .flex-button{
