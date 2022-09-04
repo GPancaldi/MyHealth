@@ -3,17 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <title>MyHealth</title>
-    <link rel="icon" type="image/x-icon" href="/MyHealth/imgs/icon-vaccine.png">
+    <link rel="icon" type="image/x-icon" href="/imgs/icon-vaccine.png">
+    <link rel="stylesheet" href="/CriarConta.css">
 </head>
-<body>
+<body class="flex-container">
     
-    <header style="background-color: rgb(57, 212, 212);">
-        <img src="/MyHealth/imgs/icon-vaccine.png" alt="">
-        <span>MyHealth</span>        
+    <header class="flex-header">
+        <div class="logo">
+
+            <img class="seringa" src="/imgs/icon-vaccine.png" alt="">
+            <span>MyHealth</span>        
+        </div>
     </header>
    
-    <div>  
-        <form>
+    <main class="flex-main">  
+        <form class="flex-form">
             <span>Nome completo</span>
             <input type="text" name="" id=""><br>
             <span>Sexo</span>
@@ -30,11 +34,11 @@
             <span>Repetir senha</span>
             <input type="password" name="" id=""><br>
 
-            <div>
+            <div class="flex-button">
                 <button>Cadastrar</button>
             </div>
         </form>
-    </div>
+    </main>
 
 
 </body>
