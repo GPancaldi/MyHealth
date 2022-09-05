@@ -3,44 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <title>MyHealth</title>
-    <link rel="icon" type="image/x-icon" href="/MyHealth/imgs/icon-vaccine.png">
+    <link rel="icon" type="image/x-icon" href="/imgs/icon-vaccine.png">
+    <link rel="stylesheet" href="/NovaVacina.css">
 </head>
-<body>
+<body class="flex-container">
     
-    <header style="background-color: rgb(57, 212, 212);">
-        <img src="/MyHealth/imgs/icon-vaccine.png" alt="">
-        <span>MyHealth</span>
-        <div>
-            <span>Minhas vacinas</span>
-            <span>Logout</span>
+    <header class="flex-header">
+        <div class="logo">
+            <img class="seringa" src="/imgs/icon-vaccine.png" alt="">
+            <span>MyHealth</span>        
+        </div>
+        <div class="header-buttons">
+            <button>Minhas Vacinas</button>
+            <button>Logout</button>
         </div> 
     </header>
 
-    <div>
-        <form action="">
-            <span>Data da vacinação</span>
-            <input type="date" name="" id=""><br>
-            <span>Vacina</span>
-            <input type="text" name="" id=""><br>
-            <span>Dose</span>
-            <input type="radio" name="" id="">
-            <span>1a Dose</span>
-            <input type="radio" name="" id="">
-            <span>2a Dose</span>
-            <input type="radio" name="" id="">
-            <span>3a Dose</span>
-            <input type="radio" name="" id="">
-            <span>Reforço</span>
-            <input type="radio" name="" id="">
-            <span>Dose unica</span><br>
-            <span>Comprovante de vacina</span><br>
-            <span>proxima vacinacao</span>
-            <input type="date" name="" id=""><br>
-        </form>
-    </div>
-    
-    <div>
-        <button>Cadastrar</button>
-    </div>
+    <main class="flex-main">
+
+            <form class="flex-form">
+                <div class="flex-label">
+                    <label for="datavac">Data da vacinação</label>
+                    <input type="date" name="datavac" id="datavac">
+                </div>
+
+                <div class="flex-label">
+                    <label for="vac">Vacina</label>
+                    <input type="text" name="vac" id="vac">
+                </div>
+
+                <div class="flex-radio">
+                    <label>Dose</label>
+
+                    <input type="radio" name="radiocheck" id="radio1">
+                    <label for="radio1">1a Dose</label>
+
+                    <input type="radio" name="radiocheck" id="radio2">
+                    <label for="radio2">2a Dose</label>
+
+                    <input type="radio" name="radiocheck" id="radio3">
+                    <label for="radio3">3a Dose</label>
+
+                    <input type="radio" name="radiocheck" id="radio4">
+                    <label for="radio4">Reforço</label>
+
+                    <input type="radio" name="radiocheck" id="radio5">
+                    <label for="radio5">Dose unica</label>
+                </div>
+
+                <div class="flex-label">
+                    <span>Comprovante de vacina</span>
+                </div>
+
+                <div class="flex-label">
+                    <span>Proxima vacinacao</span>
+                    <input type="date" name="" id="">
+                </div>
+                
+                
+                <div>
+                    <button>Cadastrar</button>
+                </div>
+            </form>
+    </main>
 </body>
 </html>
