@@ -92,12 +92,30 @@
     justify-content: center;
 }
 
-.cadastro {
+.salvalt {
     background-color: #37BD6D;
     color: white;
     border: none;
-    width: 188px;
+    width: 210x;
     height: 50px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.flex-delete{
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+    margin-right: 20px;
+    
+}
+
+.delete{
+    background-color: #FD7979;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 40px;
     font-size: 24px;
     cursor: pointer;
 }
