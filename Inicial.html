@@ -4,30 +4,37 @@
     <meta charset="UTF-8">
     <title>MyHealth</title>
     <link rel="icon" type="image/x-icon" href="/imgs/icon-vaccine.png">
+    <link rel="stylesheet" href="/Inicial.css">
+    <link rel="stylesheet" href="/font-awesome/css/all.min.css">
 </head>
-<body>
+<body class="flex-container">
     
-    <header style="background-color: rgb(57, 212, 212);">
-        <img src="/imgs/icon-vaccine.png" alt="">
-        <span>MyHealth</span>
-        <div>
-            <span>Minhas vacinas</span>
-            <span>Logout</span>
+    <header class="flex-header">
+        <div class="logo">
+            <img class="seringa" src="/imgs/icon-vaccine.png" alt="">
+            <span>MyHealth</span>        
+        </div>
+        <div class="header-buttons">
+            <button>Minhas Vacinas</button>
+            <button>Logout</button>
         </div> 
     </header>
 
-    <div>
-        <input type="search" name="" id="">
+    <div class="flex-search">
+        <input type="search" name="" id="" placeholder="Pesquisar vacina">
+        <button class="search-button" type="submit">
+            <i class="fa fa-search"></i>
+          </button>
     </div>
 
-    <div>
-        <span>Covid</span>
-    </div>
-
-
-    <div>
-        <button>Nova Vacina</button>
-    </div>
+    <main class="flex-main">
+        
+        
+        
+        <div class="flex-button">
+            <button>Nova Vacina</button>
+        </div>
+    </main>
     
 </body>
 </html>
