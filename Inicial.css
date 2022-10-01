@@ -48,15 +48,12 @@
 .flex-main {
     
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
     flex-direction: column;
     width: 100%;
     height: 700px;
     margin-top: 90px;
-    border: solid black 1px;
-    
-    
 }
 
 .flex-search{
@@ -78,5 +75,50 @@
 .search-button{
     border: none;
     background-color: white;
+    cursor: pointer;
+}
+
+.vacina-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    width: 100%;
+  }
+
+.vacina-item {
+    background-color: white;
+    padding: 20px;
+    text-align: center;
+    border-radius: 10px;
+  }
+
+.nomeVac{
+    font-size: 36px;
+    color: #3F92C5;
+}
+
+.dose{
+    background-color: #3F92C5;
+    color: white;
+    font-size: 16px;
+}
+
+.dataVac{
+    color: #8B8B8B;
+    font-size: 16px;
+}
+
+.flex-button{
+    display: flex;
+    justify-content: center;
+}
+
+.novaVac {
+    background-color: #37BD6D;
+    color: white;
+    border: none;
+    width: 188px;
+    height: 50px;
+    font-size: 24px;
     cursor: pointer;
 }
