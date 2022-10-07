@@ -5,6 +5,17 @@
     <title>MyHealth</title>
     <link rel="icon" type="image/x-icon" href="/imgs/icon-vaccine.png">
     <link rel="stylesheet" href="/Index.css">
+
+
+    <script type="module">
+
+        const botao = document.getElementsByClassName("BotaoTenhoConta") //captura do elemento html
+
+        botao[0].addEventListener("click", () => {
+            window.location.href = "Entrar.html"
+        })
+
+    </script>
     
 </head>
 
@@ -18,7 +29,7 @@
         </div>
 
         <div class="flex-button">
-            <button class="BotaoTenhoConta">Já tenho conta</button>
+            <button  class="BotaoTenhoConta">Já tenho conta</button>
         </div> 
     </header>
 
