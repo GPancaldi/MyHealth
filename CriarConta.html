@@ -1,22 +1,36 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>MyHealth</title>
     <link rel="icon" type="image/x-icon" href="/imgs/icon-vaccine.png">
     <link rel="stylesheet" href="/CriarConta.css">
+
+    <script type="module">
+
+        const botao = document.getElementsByClassName("cadastro") //captura do elemento html
+
+        botao[0].addEventListener("click", () => {
+            console.log("armando")
+            window.location.href = "Entrar.html"
+        })
+
+    </script>
+
 </head>
+
 <body class="flex-container">
-    
+
     <header class="flex-header">
         <div class="logo">
 
             <img class="seringa" src="/imgs/icon-vaccine.png" alt="">
-            <span>MyHealth</span>        
+            <span>MyHealth</span>
         </div>
     </header>
-   
-    <main class="flex-main">  
+
+    <main class="flex-main">
         <form class="flex-form">
             <div class="flex-label">
                 <label for="nome">Nome Completo</label>
@@ -25,9 +39,9 @@
 
             <div class="flex-radio">
                 <label>Sexo</label>
-                <input type="radio" name="radio1" id="">
+                <input type="radio" name="radio1" id="masc">
                 <label for="radio1">Masculino</label>
-                <input type="radio" name="radio1" id="">
+                <input type="radio" name="radio1" id="fem">
                 <label for="radio1">Feminino</label>
             </div>
 
@@ -40,23 +54,24 @@
                 <label for="email">E-mail</label>
                 <input type="email" name="email" id="email">
             </div>
-            
+
             <div class="flex-label">
                 <label for="senha">Senha</label>
                 <input type="password" name="senha" id="senha">
             </div>
-            
+
             <div class="flex-label">
                 <label for="repsenha">Repetir Senha</label>
                 <input type="password" name="repsenha" id="repsenha">
             </div>
 
             <div class="flex-button">
-                <button href class="cadastro" >Cadastrar</button>
+                <button type="button" id="cadastro" class="cadastro">Cadastrar</button>
             </div>
         </form>
     </main>
 
 
 </body>
+
 </html>

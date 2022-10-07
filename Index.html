@@ -9,10 +9,16 @@
 
     <script type="module">
 
-        const botao = document.getElementsByClassName("BotaoTenhoConta") //captura do elemento html
+        const botaoTC = document.getElementsByClassName("BotaoTenhoConta") //captura do elemento html
+
+        botaoTC[0].addEventListener("click", () => {
+            window.location.href = "Entrar.html"
+        })
+
+        const botao = document.getElementsByClassName("button1") //captura do elemento html
 
         botao[0].addEventListener("click", () => {
-            window.location.href = "Entrar.html"
+            window.location.href = "CriarConta.html"
         })
 
     </script>
