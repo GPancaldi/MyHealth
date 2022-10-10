@@ -6,6 +6,35 @@
     <link rel="icon" type="image/x-icon" href="/imgs/icon-vaccine.png">
     <link rel="stylesheet" href="/Inicial.css">
     <link rel="stylesheet" href="/font-awesome/css/all.min.css">
+
+    <script type="module">
+
+        /*const botaoMV = document.getElementById("minhaVac") //captura do elemento html
+
+        botaoMV.addEventListener("click", () => {
+            window.location.href = "Entrar.html"
+        })
+        */
+        const botaoLogout = document.getElementById("logout") //captura do elemento html
+
+        botaoLogout.addEventListener("click", () => {
+            window.location.href = "Entrar.html"
+        })
+
+        const botaoNV = document.getElementsByClassName("novaVac") //captura do elemento html
+
+        botaoNV[0].addEventListener("click", () => {
+        window.location.href = "NovaVacina.html"
+})
+
+        const edit = document.getElementsByClassName("vacina-item")
+        
+        edit[0].addEventListener("click", () => {
+        window.location.href = "EditarVacina.html"
+})
+
+    </script>
+
 </head>
 <body class="flex-container">
     
@@ -15,8 +44,8 @@
             <span>MyHealth</span>        
         </div>
         <div class="header-buttons">
-            <button>Minhas Vacinas</button>
-            <button>Logout</button>
+            <button id="minhaVac">Minhas Vacinas</button>
+            <button id="logout">Logout</button>
         </div> 
 
     </header>

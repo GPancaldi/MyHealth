@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="UTF-8">
     <title>MyHealth</title>
     <link rel="icon" type="image/x-icon" href="/imgs/icon-vaccine.png">
     <link rel="stylesheet" href="/RecuperarSenha.css">
+
+    <script type="module">
+        const botaoRed = document.getElementsByClassName("redefinir") //captura do elemento html
+
+        botaoRed[0].addEventListener("click", () => {
+            window.location.href = "Entrar.html"
+        })
+
+    </script>
+
 </head>
+
 <body class="flex-container">
-    
+
     <header class="flex-header">
         <div class="logo">
-            <img  class="seringa" src="/imgs/icon-vaccine.png" alt="">
-            <span>MyHealth</span>        
+            <img class="seringa" src="/imgs/icon-vaccine.png" alt="">
+            <span>MyHealth</span>
         </div>
     </header>
 
@@ -22,7 +34,7 @@
                 <label for="email">E-mail</label>
                 <input type="email" name="email" id="email"><br>
             </div>
-            
+
             <div class="flex-button">
                 <button class="redefinir">Redefinir Senha</button>
             </div>
@@ -30,4 +42,5 @@
     </main>
 
 </body>
+
 </html>
