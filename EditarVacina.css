@@ -119,3 +119,44 @@
     font-size: 24px;
     cursor: pointer;
 }
+
+.popup{
+    position: absolute;
+    display: flex;
+    flex-wrap: wrap;
+    background-color: white;
+    height: 300px;
+    width: 600px;
+    border: solid black 3px;
+    justify-content: space-around;
+    visibility: hidden;
+}
+
+.confirma{
+    margin-top: 10px;
+    background-color: #FD7979;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cancelar{
+    margin-top: 10px;
+    background-color: #3F92C5;
+    color: white;
+    border: none;
+    width: 150px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.popup span{
+    margin-top: 70px;
+        font-size: 30px;
+        line-height: 36px;
+        color: #FD7979;
+}

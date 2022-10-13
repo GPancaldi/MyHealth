@@ -27,8 +27,19 @@
         window.location.href = "Inicial.html"
 })
 
-    
+        const botaodelete = document.getElementById("delete")
 
+        botaodelete.addEventListener("click", () => {
+            console.log("teste")
+            document.getElementById("popup").style.visibility = "visible";
+        
+        })
+
+        const botaocancelar = document.getElementById("cancelar")
+
+        botaocancelar.addEventListener("click", () => {
+            document.getElementById("popup").style.visibility = "hidden"
+        })
     </script>
 
 
@@ -49,7 +60,7 @@
     <main class="flex-main">
 
         <div class="flex-delete">
-            <button class="delete"><i class="fa fa-trash" ></i> Excluir</button>
+            <button class="delete" id="delete"><i class="fa fa-trash" ></i> Excluir</button>
         </div>
 
             <form class="flex-form">
@@ -97,6 +108,13 @@
                     <button type="button" class="salvalt">Salvar alterações</button>
                 </div>
             </form>
+
+            <div id="popup" class="popup">
+                <span>Tem certeza que deseja remover essa vacina?</span><br>
+                <button class="confirma" id="confirma">SIM</button>
+                <button class="cancelar" id="cancelar">CANCELAR</button>
+            </div>
+
     </main>
 </body>
 </html>

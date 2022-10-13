@@ -91,3 +91,10 @@
 .flex-radio input{
     margin-left: 100px;
 }
+
+.alertaSenha{
+    display: flex;
+    justify-content: center;
+    color: #FD7979;
+    visibility: hidden;
+}

@@ -9,11 +9,29 @@
 
     <script type="module">
 
+        const getSenha = () => {
+            return document.getElementById("senha").value
+        }
+
+        const getRepSenha = () => {
+            return document.getElementById("repsenha").value
+        }
+
+        const verificaSenha = () =>{
+            const senha1 = getSenha()
+            const senha2 = getRepSenha()
+
+            if(senha1 == senha2){
+                window.location.href = "Entrar.html"
+            }
+            else{
+                document.getElementById("alertasenha").style.visibility = "visible"
+            }
+        }
+
         const botao = document.getElementsByClassName("cadastro") //captura do elemento html
 
-        botao[0].addEventListener("click", () => {
-            window.location.href = "Entrar.html"
-        })
+        botao[0].addEventListener("click", verificaSenha)
 
     </script>
 
@@ -62,6 +80,10 @@
             <div class="flex-label">
                 <label for="repsenha">Repetir Senha</label>
                 <input type="password" name="repsenha" id="repsenha">
+            </div>
+
+            <div class="alertaSenha" id="alertasenha">
+                <span>Senha não confere!</span>
             </div>
 
             <div class="flex-button">
