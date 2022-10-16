@@ -28,10 +28,26 @@
 
         botaoNV[0].addEventListener("click", cadastraVacina)
 
+    function getId(){
+
+       let dados = JSON.parse(localStorage.getItem("dadosVacina"));
+
+        if(dados == null || dados.length == 0){
+            return 1
+        }
+        else{
+            var idmax = Math.max(...dados.map(dado => dado.id))
+            return idmax + 1
+        }
+    } 
+        
     function cadastraVacina(){
         let dataVacina = document.getElementById("datavac")
         let vacina = document.getElementById("vac")
         let dataProxVacina = document.getElementById("proxVac")
+        let imagem = document.getElementById("imagem")
+        let dose = document.querySelector('input[name = "radiocheck"]:checked')
+
 
         let dados = JSON.parse(localStorage.getItem("dadosVacina"));
 
@@ -43,15 +59,20 @@
         let registro = {
             dataVac : dataVacina.value,
             nomeVac : vacina.value,
-            dataProxVac : dataProxVacina.value
+            dataProxVac : dataProxVacina.value,
+            imagem : imagem.value,
+            doseVac : dose.value,
+            id : getId()
         }
 
         dados.push(registro);
 
         localStorage.setItem("dadosVacina", JSON.stringify(dados))
+        window.location.replace("/Inicial.html")
     }
     
     botaoNV[0].addEventListener("click", cadastraVacina)
+
 
     </script>
 
@@ -85,25 +106,27 @@
                 <div class="flex-radio">
                     <label>Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio1">
+                    <input type="radio" name="radiocheck" id="radio1" value="1a Dose">
                     <label for="radio1">1a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio2">
+                    <input type="radio" name="radiocheck" id="radio2" value="2a Dose">
                     <label for="radio2">2a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio3">
+                    <input type="radio" name="radiocheck" id="radio3" value="3a Dose">
                     <label for="radio3">3a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio4">
+                    <input type="radio" name="radiocheck" id="radio4" value="Reforço">
                     <label for="radio4">Reforço</label>
 
-                    <input type="radio" name="radiocheck" id="radio5">
+                    <input type="radio" name="radiocheck" id="radio5" value="Dose unica">
                     <label for="radio5">Dose unica</label>
                 </div>
 
                 <div class="flex-label">
-                    <label for="compvac">Comprovante de vacina</label>
-                    <input type="file" name="compvac" id="compvac">
+                    <div class="input-name" id="imagem" name="imagem"></div>
+                        <label for="compvac">Comprovante de vacina</label>
+                        <input type="file" name="compvac" id="compvac" onchange='uploadFile(this)'>
+                    
                 </div>
 
                 <div class="flex-label">
@@ -117,5 +140,21 @@
                 </div>
             </form>
     </main>
+
+    <script>
+            function uploadFile(fileInput) {
+            let fileUploaded = fileInput.files[0];
+            const reader = new FileReader();
+            reader.addEventListener("load", () => {
+                
+                document.getElementById("imagem").value = reader.result
+
+            })
+            reader.readAsDataURL(fileUploaded);
+        }
+    </script>
 </body>
+
+
+
 </html>

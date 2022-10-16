@@ -48,7 +48,7 @@
 
 
 </head>
-<body class="flex-container">
+<body class="flex-container" onload="loadEdit()">
     
     <header class="flex-header">
         <div class="logo">
@@ -81,19 +81,19 @@
                 <div class="flex-radio">
                     <label>Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio1">
+                    <input type="radio" name="radiocheck" id="radio1" value="1a Dose">
                     <label for="radio1">1a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio2">
+                    <input type="radio" name="radiocheck" id="radio2" value="2a Dose">
                     <label for="radio2">2a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio3">
+                    <input type="radio" name="radiocheck" id="radio3" value="3a Dose">
                     <label for="radio3">3a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio4">
+                    <input type="radio" name="radiocheck" id="radio4" value="Reforço">
                     <label for="radio4">Reforço</label>
 
-                    <input type="radio" name="radiocheck" id="radio5">
+                    <input type="radio" name="radiocheck" id="radio5" value="Dose unica">
                     <label for="radio5">Dose unica</label>
                 </div>
 
@@ -104,7 +104,7 @@
 
                 <div class="flex-label">
                     <span>Proxima vacinacao</span>
-                    <input type="date" name="" id="">
+                    <input type="date" name="" id="proxvac">
                 </div>
                 
                 
@@ -114,11 +114,26 @@
             </form>
 
             <div id="popup" class="popup">
-                <span>Tem certeza que deseja remover essa vacina?</span><br>
+                <span>Tem certeza que deseja remover essa vacina?</span>
                 <button class="confirma" id="confirma">SIM</button>
                 <button class="cancelar" id="cancelar">CANCELAR</button>
             </div>
 
     </main>
+
+    <script>
+        function loadEdit(){
+            let idEdit = localStorage.getItem("idEdit")
+            let dados = JSON.parse(localStorage.getItem("dadosVacina"))
+
+            let dadoEdit = dados.find(dado => dado.id == idEdit)
+            console.log(dadoEdit)
+
+            let teste = Array.from(document.getElementsByName("radiocheck")).find(radio => radio.value == dadoEdit.doseVac).checked = true
+            document.getElementById("datavac").value = dadoEdit.dataVac
+            document.getElementById("vac").value = dadoEdit.nomeVac
+            document.getElementById("proxvac").value = dadoEdit.dataProxVac
+        }
+    </script>
 </body>
 </html>

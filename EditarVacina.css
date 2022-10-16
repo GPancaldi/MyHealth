@@ -130,6 +130,7 @@
     height: 300px;
     width: 600px;
     border: solid black 3px;
+    align-items: center;
     justify-content: space-around;
     visibility: hidden;
 }
@@ -157,8 +158,9 @@
 }
 
 .popup span{
-    margin-top: 70px;
+        margin-top: 50px;
         font-size: 30px;
         line-height: 36px;
         color: #FD7979;
+        text-align: center;
 }

@@ -19,6 +19,11 @@
             window.location.href = "Entrar.html"
         })
         */
+
+        window.onload = () =>{
+            document.getElementById("minhaVac").addEventListener('click', adicionarCard)
+        }
+
         const botaoLogout = document.getElementById("logout") //captura do elemento html
 
         botaoLogout.addEventListener("click", () => {
@@ -31,11 +36,63 @@
         window.location.href = "NovaVacina.html"
 })
 
-        const edit = document.getElementsByClassName("vacina-item")
+        /*const edit = document.getElementsByClassName("vacina-item")
         
         edit[0].addEventListener("click", () => {
         window.location.href = "EditarVacina.html"
 })
+
+*/
+        var storage = localStorage.getItem("dadosVacina")
+        
+        storage = JSON.parse(storage)
+        
+        console.log(storage)
+        
+        function cardVacina(storage){
+            let card = document.createElement("div")
+            card.className = "vacina-item"
+
+            card.onclick = function(event){
+                localStorage.setItem("idEdit", storage.id)
+                window.location.href = "EditarVacina.html"
+            }
+
+            console.log(storage)
+
+            let nomeVac = document.createElement("span")
+            nomeVac.className = "nomeVac"
+            nomeVac.innerHTML = storage.nomeVac;
+
+            let dose = document.createElement("span")
+            dose.className = "dose"
+            dose.innerHTML = storage.doseVac
+            
+            let dataVac = document.createElement("span")
+            dataVac.className = "dataVac"
+            dataVac.innerHTML = storage.dataVac
+            
+            let img = document.createElement("img")
+            img.src = storage.imagem
+            img.className ="imagem"
+
+            card.appendChild(nomeVac)
+            card.appendChild(dose)
+            card.appendChild(dataVac)
+            card.appendChild(img)
+
+            return card
+        }
+
+        const adicionarCard = () => {
+            const card = storage.pop()
+            if(card == null){
+                alert("Não há vacinas")
+            }
+            else{
+                document.getElementById("vacina-container").appendChild(cardVacina(card))
+            }
+        }
 
     </script>
 
@@ -64,38 +121,16 @@
 
     <main class="flex-main">
   
-        <div class="vacina-container">
+        <div class="vacina-container" id="vacina-container">
             <div class="vacina-item">
-                <span class="nomeVac">BCG</span><br>
-                <span class="dose">Dose Unica</span><br>
-                <span class="dataVac">11/06/2022</span><br>
-                <img src="/imgs/image-comprovante.png" alt=""><br>
+                <span class="nomeVac">BCG</span>
+                <span class="dose">Dose Unica</span>
+                <span class="dataVac">11/06/2022</span>
+                <img  class="imagem" src="/imgs/image-comprovante.png" alt="">
                 <span class="proxDose">Não há próxima dose</span>
 
             </div>
-            <div class="vacina-item">
-                <span class="nomeVac">Hepatite B</span><br>
-                <span class="dose">1a Dose</span><br>
-                <span class="dataVac">11/08/2022</span><br>
-                <img src="/imgs/image-comprovante.png" alt=""><br>
-                <span class="proxDose">Não há próxima dose</span>
-            </div>
-
-            <div class="vacina-item">
-                <span class="nomeVac">Hepatite B</span><br>
-                <span class="dose">1a Dose</span><br>
-                <span class="dataVac">11/08/2022</span><br>
-                <img src="/imgs/image-comprovante.png" alt=""><br>
-                <span class="proxDose">Não há próxima dose</span>
-            </div>
-
-            <div class="vacina-item">
-                <span class="nomeVac">Hepatite B</span><br>
-                <span class="dose">1a Dose</span><br>
-                <span class="dataVac">11/08/2022</span><br>
-                <img src="/imgs/image-comprovante.png" alt=""><br>
-                <span class="proxDose">Não há próxima dose</span>
-            </div>
+            
 
             
         </div>
