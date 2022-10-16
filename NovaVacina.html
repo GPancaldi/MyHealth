@@ -26,11 +26,32 @@
 
         const botaoNV = document.getElementsByClassName("cadastro") //captura do elemento html
 
-        botaoNV[0].addEventListener("click", () => {
-        window.location.href = "Inicial.html"
-})
+        botaoNV[0].addEventListener("click", cadastraVacina)
 
+    function cadastraVacina(){
+        let dataVacina = document.getElementById("datavac")
+        let vacina = document.getElementById("vac")
+        let dataProxVacina = document.getElementById("proxVac")
+
+        let dados = JSON.parse(localStorage.getItem("dadosVacina"));
+
+        if(dados == null){
+            localStorage.setItem("dadosVacina", "[]")
+            dados = [];
+        }
+        
+        let registro = {
+            dataVac : dataVacina.value,
+            nomeVac : vacina.value,
+            dataProxVac : dataProxVacina.value
+        }
+
+        dados.push(registro);
+
+        localStorage.setItem("dadosVacina", JSON.stringify(dados))
+    }
     
+    botaoNV[0].addEventListener("click", cadastraVacina)
 
     </script>
 
@@ -87,7 +108,7 @@
 
                 <div class="flex-label">
                     <span>Proxima vacinacao</span>
-                    <input type="date" name="" id="">
+                    <input type="date" name="" id="proxVac">
                 </div>
                 
                 
