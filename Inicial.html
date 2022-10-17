@@ -13,16 +13,12 @@
 
     <script type="module">
 
-        /*const botaoMV = document.getElementById("minhaVac") //captura do elemento html
+        const botaoMV = document.getElementById("minhaVac") //captura do elemento html
 
         botaoMV.addEventListener("click", () => {
-            window.location.href = "Entrar.html"
+            window.location.href = "Inicial.html"
         })
-        */
-
-        window.onload = () =>{
-            document.getElementById("minhaVac").addEventListener('click', adicionarCard)
-        }
+        
 
         const botaoLogout = document.getElementById("logout") //captura do elemento html
 
@@ -36,13 +32,10 @@
         window.location.href = "NovaVacina.html"
 })
 
-        /*const edit = document.getElementsByClassName("vacina-item")
         
-        edit[0].addEventListener("click", () => {
-        window.location.href = "EditarVacina.html"
-})
 
-*/
+
+
         var storage = localStorage.getItem("dadosVacina")
         
         storage = JSON.parse(storage)
@@ -94,6 +87,10 @@
             }
         }
 
+        window.onload = () => {
+            adicionarCard();
+        }
+
     </script>
 
 </head>
@@ -122,14 +119,7 @@
     <main class="flex-main">
   
         <div class="vacina-container" id="vacina-container">
-            <div class="vacina-item">
-                <span class="nomeVac">BCG</span>
-                <span class="dose">Dose Unica</span>
-                <span class="dataVac">11/06/2022</span>
-                <img  class="imagem" src="/imgs/image-comprovante.png" alt="">
-                <span class="proxDose">Não há próxima dose</span>
            
-            </div>
             
 
             
