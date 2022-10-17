@@ -44,10 +44,16 @@
     function cadastraVacina(){
         let dataVacina = document.getElementById("datavac")
         let vacina = document.getElementById("vac")
-        let dataProxVacina = document.getElementById("proxVac")
         let imagem = document.getElementById("imagem")
         let dose = document.querySelector('input[name = "radiocheck"]:checked')
+        let dataProxVacina = null
 
+        if(dose.value == "Dose unica"){
+           dataProxVacina = 'Não há próxima dose'
+        }
+        else{
+            dataProxVacina = document.getElementById("proxVac")
+        }
 
         let dados = JSON.parse(localStorage.getItem("dadosVacina"));
 

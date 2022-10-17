@@ -69,16 +69,21 @@
             img.src = storage.imagem
             img.className ="imagem"
 
+            let proxVac = document.createElement("span")
+            proxVac.className = "proxDose"
+            proxVac.innerHTML = storage.dataProxVac
+
             card.appendChild(nomeVac)
             card.appendChild(dose)
             card.appendChild(dataVac)
             card.appendChild(img)
+            card.appendChild(proxVac)
 
             return card
         }
 
-        const adicionarCard = () => {
-            const card = storage.pop()
+        const adicionarCard = (i) => {
+            const card = storage[i]
             if(card == null){
                 alert("Não há vacinas")
             }
@@ -88,7 +93,12 @@
         }
 
         window.onload = () => {
-            adicionarCard();
+            
+                for(var i=0; i< storage.length; i++){
+                    adicionarCard(i);
+                    
+                }
+            
         }
 
     </script>
