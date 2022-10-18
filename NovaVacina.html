@@ -52,7 +52,7 @@
            dataProxVacina = 'Não há próxima dose'
         }
         else{
-            dataProxVacina = document.getElementById("proxVac")
+            dataProxVacina = document.getElementById("proxVac").value
         }
 
         let dados = JSON.parse(localStorage.getItem("dadosVacina"));
@@ -65,7 +65,7 @@
         let registro = {
             dataVac : dataVacina.value,
             nomeVac : vacina.value,
-            dataProxVac : dataProxVacina.value,
+            dataProxVac : dataProxVacina,
             imagem : imagem.value,
             doseVac : dose.value,
             id : getId()
@@ -101,7 +101,7 @@
             <form class="flex-form">
                 <div class="flex-label">
                     <label for="datavac">Data da vacinação</label>
-                    <input type="date" name="datavac" id="datavac">
+                    <input type="date" name="datavac" id="datavac" required pattern  = "[0-9]{2}/[0-9]{2}/[0-9]{4}">
                 </div>
 
                 <div class="flex-label">
@@ -137,7 +137,7 @@
 
                 <div class="flex-label">
                     <span>Proxima vacinacao</span>
-                    <input type="date" name="" id="proxVac">
+                    <input type="date" name="" id="proxVac" required pattern  = "[0-9]{2}/[0-9]{2}/[0-9]{4}">
                 </div>
                 
                 
