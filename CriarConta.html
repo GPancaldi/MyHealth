@@ -12,6 +12,13 @@
 
 
     <script type="module">
+        
+        import {app, auth} from './config/firebase.js'
+        import {createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+        const getEmail = () => {
+            return document.getElementById("email").value
+        }
 
         const getSenha = () => {
             return document.getElementById("senha").value
@@ -22,11 +29,21 @@
         }
 
         const verificaSenha = () =>{
+            const email = getEmail()
             const senha1 = getSenha()
             const senha2 = getRepSenha()
 
             if(senha1 == senha2){
-                window.location.href = "Entrar.html"
+                createUserWithEmailAndPassword(auth, email, senha1)
+                .then( (user) => {
+                        console.log(JSON.stringify(user))
+                        //window.location.href = "Entrar.html"
+                })
+
+                
+                .catch( (error) =>{
+                    console.log(error.message)
+                })
             }
             else{
                 document.getElementById("alertasenha").style.visibility = "visible"

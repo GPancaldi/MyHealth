@@ -12,11 +12,49 @@
 
     <script type="module">
 
+        import {app, auth} from './config/firebase.js'
+        import {signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"
+
+        const getEmail = () => {
+            return document.getElementById("email").value
+        }
+
+        const getSenha = () => {
+            return document.getElementById("senha").value
+        }
+
+        const autenticarUsuario = () => {
+            const email = getEmail()
+            const senha = getSenha()
+
+            //display: none no botão
+            //Exibe uma animação de loading
+
+            signInWithEmailAndPassword(auth, email, senha)
+            .then( (user) => {
+                console.log(JSON.stringify(user))
+                window.location.href = "Inicial.html"
+            })
+
+            .catch( (error) => {
+                console.log(error.code)
+                if (error.code === "auth/wrong-password")
+                    alert("Senha incorreta")
+                else if(error.code === "auth/user-not-found")
+                    alert("usuario nao encontrado")
+            })
+            .finally( () => {
+                //esconde o loading
+                //exibe de novo o botão
+            })
+
+
+        }
+
+
         const botao = document.getElementsByClassName("entrar") //captura do elemento html
 
-        botao[0].addEventListener("click", () => {
-            window.location.href = "Inicial.html"
-        })
+        botao[0].addEventListener("click", autenticarUsuario)
 
     </script>
 

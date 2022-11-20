@@ -12,11 +12,31 @@
 
 
     <script type="module">
+
+        import {app, auth} from './config/firebase.js'
+        import { sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/9.10.0/firebase-auth.js"
+
+
+        const getEmail = () => {
+            return document.getElementById("email").value
+        }
+
+        const recuperarSenha = () => {
+            const email = getEmail()
+
+            sendPasswordResetEmail(auth, email)
+            .then(() => {
+                console.log('Solicitação realizada com sucesso')
+                window.location.href = "Entrar.html"
+            })
+            .catch(() => {
+                console.log('Erro ao solicitar reset de senha')
+            })
+        }
+
         const botaoRed = document.getElementsByClassName("redefinir") //captura do elemento html
 
-        botaoRed[0].addEventListener("click", () => {
-            window.location.href = "Entrar.html"
-        })
+        botaoRed[0].addEventListener("click", recuperarSenha)
 
     </script>
 
