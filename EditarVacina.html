@@ -13,42 +13,203 @@
 
     <script type="module">
 
-        const botaoMV = document.getElementById("minhaVac") //captura do elemento html
 
-        botaoMV.addEventListener("click", () => {
-            window.location.href = "Inicial.html"
-        })
+    import {db, storage} from './config/firebase.js'
+    import { addDoc, collection, getDoc, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+    import { uploadBytes, ref, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
+
+
+        var file = null;
+        var pathFoto = null;
+
+        const getDataVac = () => {
+            return document.getElementById("datavac").value
+        }
+
+        const getVacina = () => {
+            return document.getElementById("vac").value
+        }
+
+        const getimagem = () => {
+            return document.getElementById("imagem").value
+        }
+
+        const getDose = () => {
+            return document.querySelector('input[name = "radiocheck1"]:checked')?.value || ""
+        }
+
+        const getDataProxVac = () => {
+            return document.getElementById("proxvac").value
+            
+
+            /*dose = getDose();
+            if(dose == "Dose unica"){
+               return 'Não há próxima dose'
+            }
+            else{
+                return document.getElementById("proxVac").value
+            }*/
+        }
+
+        const getPathFoto = () => {
+            return pathFoto
+        }
+
+        const getUrlFoto = () => {
+            return document.getElementById("imagem").value
+            
+        }
+
+        const setDataVac = (dataVac) => {
+            document.getElementById("datavac").value = dataVac
+        }
+
+        const setVacina = (nomeVac) => {
+            return document.getElementById("vac").value = nomeVac
+        }
+
+        const setDose = (doseVac) => {
+            return Array.from(document.getElementsByName("radiocheck1")).find(radio => radio.value == doseVac).checked = true
+        }
+
+        const setDataProxVac = (dataProxVac) => {
+            return document.getElementById("proxvac").value = dataProxVac
+        }
+
+        const setUrlFoto = (urlFoto) => {
+            document.getElementById("compvac").innerHTML = urlFoto
+        }
+
+
+        const setPathFoto = (caminho) => {
+            pathFoto = caminho
+        }
+
+
+        const uid = () => {
+            const id = Date.now().toString(16) + Math.random().toString(16)
+            return id.replace(/\./g, '')
+        }    
+
         
-        const botaoLogout = document.getElementById("logout") //captura do elemento html
 
-        botaoLogout.addEventListener("click", () => {
-            window.location.href = "Entrar.html"
-        })
+        const editarVacina = (id) => {
+            if (file) {
+                uploadBytes(ref(storage, getPathFoto()), file)
+                    .then((result) => {
+                        console.log("Arquivo enviado com sucesso: " + result)
+                        updateDoc(doc(db, "vacinas", id), {
+                            dataVac : getDataVac(),
+                            nomeVac : getVacina(),
+                            doseVac : getDose(),
+                            dataProxVac : getDataProxVac(),
+                            urlFoto: getUrlFoto(),
+                            pathFoto: getPathFoto()
+                        })
+                            .then(() => {
+                                window.location.href = "Inicial.html"
+                            })
+                            .catch((error) => {
+                                console.log("Erro ao atualizar o documento: " + error)
+                            })
+                    })
+                    .catch((error) => {
+                        console.log("Erro ao enviar arquivo: " + error)
+                    })
+            } else {
+                updateDoc(doc(db, "vacinas", id), {
+                    dataVac : getDataVac(),
+                    nomeVac : getVacina(),
+                    doseVac : getDose(),
+                    dataProxVac : getDataProxVac(),
+                    urlFoto: getUrlFoto(),
+                    pathFoto: getPathFoto()
+                })
+                    .then(() => {
+                        window.location.href = "Inicial.html"
+                    })
+                    .catch((error) => {
+                        console.log("Erro ao atualizar o documento: " + error)
+                    })
+            }
+        }
 
-        const botaoSA = document.getElementsByClassName("salvalt") //captura do elemento html
+        const deletarVacina = (id) => {
+            deleteObject(ref(storage, getPathFoto()))
+            .then(() => {
+                console.log("Arquivo excluído com sucesso.")
+                deleteDoc(doc(db, "vacinas", id))
+                .then(() => {
+                    window.location.href = "Inicial.html"
+                })
+                .catch((error) => {
+                    console.log("Erro ao excluir documento: " + error)
+                })
+            })
+            .catch((error) => {
+                console.log("Erro ao excluir o arquivo.")
+            })
+        }
 
-        botaoSA[0].addEventListener("click", () => {
-        window.location.href = "Inicial.html"
-})
 
-        const botaodelete = document.getElementById("delete")
+        window.onload = () => {
 
-        botaodelete.addEventListener("click", () => {
-            console.log("teste")
-            document.getElementById("popup").style.visibility = "visible";
-        
-        })
+            const id = new URLSearchParams(window.location.search).get('id')
+            
 
-        const botaocancelar = document.getElementById("cancelar")
+            if (id) {
 
-        botaocancelar.addEventListener("click", () => {
-            document.getElementById("popup").style.visibility = "hidden"
-        })
+                getDoc(doc(db, "vacinas", id))
+                    .then((documento) => {
+                        setDataVac(documento.data().dataVac)
+                        setVacina(documento.data().nomeVac)
+                        setDose(documento.data().doseVac)
+                        setDataProxVac(documento.data().dataProxVac)
+                        setUrlFoto(documento.data().urlFoto)
+                        setPathFoto(documento.data().pathFoto)
+                    })
+                    .catch((error) => {
+                        console.log("Erro ao recuperar o documento: " + error)
+                    })
+                }
+
+            const botaoMV = document.getElementById("minhaVac") //captura do elemento html
+
+            botaoMV.addEventListener("click", () => {
+                window.location.href = "Inicial.html"
+            })
+
+            const botaoLogout = document.getElementById("logout") //captura do elemento html
+
+            botaoLogout.addEventListener("click", () => {
+                window.location.href = "Entrar.html"
+            })
+
+            
+            document.getElementById("salvat").addEventListener('click', () => { editarVacina(id) })
+
+            const botaodelete = document.getElementById("delete")
+
+            botaodelete.addEventListener("click", () => {
+                document.getElementById("popup").style.visibility = "visible";
+
+            })
+
+            const botaocancelar = document.getElementById("cancelar")
+
+            botaocancelar.addEventListener("click", () => {
+                document.getElementById("popup").style.visibility = "hidden"
+            })
+
+            document.getElementById("confirma").addEventListener('click', () => { deletarVacina(id) })
+        }
+    
+
     </script>
 
 
 </head>
-<body class="flex-container" onload="loadEdit()">
+<body class="flex-container">
     
     <header class="flex-header">
         <div class="logo">
@@ -81,23 +242,24 @@
                 <div class="flex-radio">
                     <label>Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio1" value="1a Dose">
+                    <input type="radio" name="radiocheck1" id="radio1" value="1a Dose">
                     <label for="radio1">1a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio2" value="2a Dose">
+                    <input type="radio" name="radiocheck1" id="radio2" value="2a Dose">
                     <label for="radio2">2a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio3" value="3a Dose">
+                    <input type="radio" name="radiocheck1" id="radio3" value="3a Dose">
                     <label for="radio3">3a Dose</label>
 
-                    <input type="radio" name="radiocheck" id="radio4" value="Reforço">
+                    <input type="radio" name="radiocheck1" id="radio4" value="Reforço">
                     <label for="radio4">Reforço</label>
 
-                    <input type="radio" name="radiocheck" id="radio5" value="Dose unica">
+                    <input type="radio" name="radiocheck1" id="radio5" value="Dose unica">
                     <label for="radio5">Dose unica</label>
                 </div>
 
                 <div class="flex-label">
+                    <div class="input-name" id="imagem" name="imagem"></div>
                     <label for="compvac">Comprovante de vacina</label>
                     <input type="file" name="compvac" id="compvac">
                 </div>
@@ -109,7 +271,7 @@
                 
                 
                 <div class="flex-button">
-                    <button type="button" class="salvalt">Salvar alterações</button>
+                    <button type="button" class="salvalt" id="salvat">Salvar alterações</button>
                 </div>
             </form>
 
@@ -121,19 +283,5 @@
 
     </main>
 
-    <script>
-        function loadEdit(){
-            let idEdit = localStorage.getItem("idEdit")
-            let dados = JSON.parse(localStorage.getItem("dadosVacina"))
-
-            let dadoEdit = dados.find(dado => dado.id == idEdit)
-            console.log(dadoEdit)
-
-            let teste = Array.from(document.getElementsByName("radiocheck")).find(radio => radio.value == dadoEdit.doseVac).checked = true
-            document.getElementById("datavac").value = dadoEdit.dataVac
-            document.getElementById("vac").value = dadoEdit.nomeVac
-            document.getElementById("proxvac").value = dadoEdit.dataProxVac
-        }
-    </script>
 </body>
 </html>

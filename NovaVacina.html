@@ -12,72 +12,130 @@
 
     <script type="module">
 
-        const botaoMV = document.getElementById("minhaVac") //captura do elemento html
+    
+    
+    import {db, storage} from './config/firebase.js'
+    import { addDoc, collection, getDoc, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
+    import { uploadBytes, ref, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 
-        botaoMV.addEventListener("click", () => {
-            window.location.href = "Inicial.html"
-        })
-        
-        const botaoLogout = document.getElementById("logout") //captura do elemento html
 
-        botaoLogout.addEventListener("click", () => {
-            window.location.href = "Entrar.html"
-        })
+    var file = null;
+    var pathFoto = null;
 
-        const botaoNV = document.getElementsByClassName("cadastro") //captura do elemento html
+    const getDataVac = () => {
+            return document.getElementById("datavac").value
+        }
 
-        botaoNV[0].addEventListener("click", cadastraVacina)
+    const getVacina = () => {
+            return document.getElementById("vac").value
+        }    
 
-    function getId(){
+    const getimagem = () => {
+            return document.getElementById("imagem").value
+        }
 
-       let dados = JSON.parse(localStorage.getItem("dadosVacina"));
+    const getDose = () => {
+            return document.querySelector('input[name = "radiocheck"]:checked').value
+        }
+    
+    const getDataProxVac = () => {
+        return document.getElementById("proxVac").value
 
-        if(dados == null || dados.length == 0){
-            return 1
+
+        /*dose = getDose();
+        if(dose == "Dose unica"){
+           return 'Não há próxima dose'
         }
         else{
-            var idmax = Math.max(...dados.map(dado => dado.id))
-            return idmax + 1
-        }
-    } 
-        
-    function cadastraVacina(){
-        let dataVacina = document.getElementById("datavac")
-        let vacina = document.getElementById("vac")
-        let imagem = document.getElementById("imagem")
-        let dose = document.querySelector('input[name = "radiocheck"]:checked')
-        let dataProxVacina = null
-
-        if(dose.value == "Dose unica"){
-           dataProxVacina = 'Não há próxima dose'
-        }
-        else{
-            dataProxVacina = document.getElementById("proxVac").value
+            return document.getElementById("proxVac").value
+        }*/
         }
 
-        let dados = JSON.parse(localStorage.getItem("dadosVacina"));
-
-        if(dados == null){
-            localStorage.setItem("dadosVacina", "[]")
-            dados = [];
+        const getPathFoto = () => {
+            return pathFoto
         }
         
-        let registro = {
-            dataVac : dataVacina.value,
-            nomeVac : vacina.value,
-            dataProxVac : dataProxVacina,
-            imagem : imagem.value,
-            doseVac : dose.value,
-            id : getId()
+        const getUrlFoto = () => {
+            return document.getElementById("imagem").value
+        }
+        
+        const setUrlFoto = (url) => {
+            document.getElementById("imagem").value = url
+        }
+        
+
+        const setPathFoto = (caminho) => {
+            pathFoto = caminho
         }
 
-        dados.push(registro);
+        
+        const uid = () => {
+            const id = Date.now().toString(16) + Math.random().toString(16)
+            return id.replace(/\./g, '')
+        }
 
-        localStorage.setItem("dadosVacina", JSON.stringify(dados))
-        window.location.replace("/Inicial.html")
+        
+    
+    const cadastraVacina = () =>{
+
+        const fileRef = "vacinas/" + uid()
+
+        uploadBytes(ref(storage, fileRef), file)
+                .then((result) => {
+                    console.log("Arquivo enviado com sucesso: " + result)
+                    getDownloadURL(ref(storage, fileRef))
+                        .then((url) => {
+                            console.log("URL: " + url)
+                            addDoc(collection(db, "vacinas"), {
+                                dataVac : getDataVac(),
+                                nomeVac : getVacina(),
+                                doseVac : getDose(),
+                                dataProxVac : getDataProxVac(),
+                                urlFoto: url,
+                                pathFoto: fileRef
+                            })
+                                .then((result) => {
+                                    console.log(JSON.stringify(result))
+                                    //window.location.href = "Inicial.html"
+                                })
+                                .catch((error) => {
+                                    console.log("Erro ao persistir dados: " + error)
+                                })
+                        })
+                        console.log(doseVac)
+                        .catch((error) => {
+                            console.log("Erro ao recuperar URL de download: " + error)
+                        })
+                })
+                .catch((error) => {
+                    console.log("Erro ao enviar arquivo: " + error)
+                })
+    
     }
     
-    botaoNV[0].addEventListener("click", cadastraVacina)
+
+
+    window.onload = () => {
+
+            const botaoMV = document.getElementById("minhaVac") //captura do elemento html
+
+            botaoMV.addEventListener("click", () => {
+                window.location.href = "Inicial.html"
+            })
+
+            const botaoLogout = document.getElementById("logout") //captura do elemento html
+
+            botaoLogout.addEventListener("click", () => {
+                window.location.href = "Entrar.html"
+            })
+
+            document.getElementById("cadastro").addEventListener('click', cadastraVacina)
+
+            document.getElementById("compvac").addEventListener('change', function (event) {
+                file = event.target.files[0]
+            })
+
+        }
 
 
     </script>
@@ -131,7 +189,7 @@
                 <div class="flex-label">
                     <div class="input-name" id="imagem" name="imagem"></div>
                         <label for="compvac">Comprovante de vacina</label>
-                        <input type="file" name="compvac" id="compvac" onchange='uploadFile(this)'>
+                        <input type="file" name="compvac" id="compvac">
                     
                 </div>
 
@@ -142,23 +200,11 @@
                 
                 
                 <div class="flex-button">
-                    <button type="button" class="cadastro">Cadastrar</button>
+                    <button type="button" class="cadastro" id="cadastro">Cadastrar</button>
                 </div>
             </form>
     </main>
 
-    <script>
-            function uploadFile(fileInput) {
-            let fileUploaded = fileInput.files[0];
-            const reader = new FileReader();
-            reader.addEventListener("load", () => {
-                
-                document.getElementById("imagem").value = reader.result
-
-            })
-            reader.readAsDataURL(fileUploaded);
-        }
-    </script>
 </body>
 
 

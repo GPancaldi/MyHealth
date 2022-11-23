@@ -13,92 +13,108 @@
 
     <script type="module">
 
-        const botaoMV = document.getElementById("minhaVac") //captura do elemento html
 
-        botaoMV.addEventListener("click", () => {
-            window.location.href = "Inicial.html"
-        })
+        import {db} from './config/firebase.js'
+        import {query, collection, onSnapshot, where} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
+
+        const novaVacina = () =>{
+            window.location.href = "NovaVacina.html"
+        }
         
+        const listaVacinas = []
 
-        const botaoLogout = document.getElementById("logout") //captura do elemento html
+        const carregarVacinas = () => {
+            const q = query( collection(db, "vacinas"))
 
-        botaoLogout.addEventListener("click", () => {
-            window.location.href = "Entrar.html"
-        })
+            onSnapshot(q, (results) => {
+                results.forEach((documento) => {
+                    listaVacinas.push({
+                        id: documento.id,
+                        nomeVac: documento.data().nomeVac,
+                        doseVac: documento.data().doseVac,
+                        dataVac: documento.data().dataVac,
+                        urlFoto: documento.data().urlFoto,
+                        dataProxVac: documento.data().dataProxVac
+                    })
+                })
+                showCardsVacinas(listaVacinas)       
+            })
+        }
 
-        const botaoNV = document.getElementsByClassName("novaVac") //captura do elemento html
 
-        botaoNV[0].addEventListener("click", () => {
-        window.location.href = "NovaVacina.html"
-})
-
+        const showCardsVacinas = (lista) => {
+            document.getElementById("vacina-container").innerHTML = ""
+            lista.forEach((documento) => {
+                cardVacina(documento.nomeVac, documento.doseVac, documento.dataVac, documento.urlFoto, documento.dataProxVac, documento.id)
+            })
+        }
         
+        const cardVacina = (nomeVac, doseVac, dataVac, urlFoto, dataProxVac, id) => {
 
-
-
-        var storage = localStorage.getItem("dadosVacina")
-        
-        storage = JSON.parse(storage)
-        
-        console.log(storage)
-        
-        function cardVacina(storage){
             let card = document.createElement("div")
             card.className = "vacina-item"
 
-            card.onclick = function(event){
-                localStorage.setItem("idEdit", storage.id)
-                window.location.href = "EditarVacina.html"
-            }
 
-            console.log(storage)
-
-            let nomeVac = document.createElement("span")
-            nomeVac.className = "nomeVac"
-            nomeVac.innerHTML = storage.nomeVac;
+            let spanNomeVac = document.createElement("span")
+            spanNomeVac.className = "nomeVac"
+            spanNomeVac.innerHTML = nomeVac;
 
             let dose = document.createElement("span")
             dose.className = "dose"
-            dose.innerHTML = storage.doseVac
+            dose.innerHTML = doseVac
             
-            let dataVac = document.createElement("span")
-            dataVac.className = "dataVac"
-            dataVac.innerHTML = storage.dataVac
+            let spanDataVac = document.createElement("span")
+            spanDataVac.className = "dataVac"
+            spanDataVac.innerHTML = dataVac
             
             let img = document.createElement("img")
-            img.src = storage.imagem
+            img.src = urlFoto
             img.className ="imagem"
 
-            let proxVac = document.createElement("span")
-            proxVac.className = "proxDose"
-            proxVac.innerHTML = storage.dataProxVac
+            let SpanProxVac = document.createElement("span")
+            SpanProxVac.className = "proxDose"
+            SpanProxVac.innerHTML = dataProxVac
 
-            card.appendChild(nomeVac)
+            const inputHiddenId = document.createElement("input")
+            inputHiddenId.type = 'hidden'
+            inputHiddenId.hidden = id
+
+            card.appendChild(spanNomeVac)
             card.appendChild(dose)
-            card.appendChild(dataVac)
+            card.appendChild(spanDataVac)
             card.appendChild(img)
-            card.appendChild(proxVac)
+            card.appendChild(SpanProxVac)
+            card.appendChild(inputHiddenId)
 
-            return card
+
+            card.addEventListener("click", () => {
+                window.location.href = "EditarVacina.html?id=" + id
+            })
+
+            document.getElementById("vacina-container").appendChild(card)
         }
 
-        const adicionarCard = (i) => {
-            const card = storage[i]
-            if(card == null){
-                alert("Não há vacinas")
-            }
-            else{
-                document.getElementById("vacina-container").appendChild(cardVacina(card))
-            }
-        }
 
         window.onload = () => {
+
             
-                for(var i=0; i< storage.length; i++){
-                    adicionarCard(i);
-                    
-                }
+
+            document.getElementById("novaVac").addEventListener('click', novaVacina)
             
+            const botaoMV = document.getElementById("minhaVac") //captura do elemento html
+
+            botaoMV.addEventListener("click", () => {
+                window.location.href = "Inicial.html"
+            })
+
+
+            const botaoLogout = document.getElementById("logout") //captura do elemento html
+
+            botaoLogout.addEventListener("click", () => {
+                window.location.href = "Entrar.html"
+            })
+
+            carregarVacinas()
         }
 
     </script>
@@ -137,7 +153,7 @@
         
         
         <div class="flex-button">
-            <button class="novaVac">Nova Vacina</button>
+            <button class="novaVac" id="novaVac">Nova Vacina</button>
         </div>
     </main>
     
