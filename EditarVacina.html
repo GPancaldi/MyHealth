@@ -77,7 +77,8 @@
         }
 
         const setUrlFoto = (urlFoto) => {
-            document.getElementById("compvac").innerHTML = urlFoto
+            
+            document.getElementById("compvac").src = urlFoto
         }
 
 
@@ -92,18 +93,21 @@
         }    
 
         
+    
 
         const editarVacina = (id) => {
-            if (file) {
+            if (file) { 
                 uploadBytes(ref(storage, getPathFoto()), file)
                     .then((result) => {
                         console.log("Arquivo enviado com sucesso: " + result)
+                        getDownloadURL(ref(storage, getPathFoto()))
+                        .then((url) => {
                         updateDoc(doc(db, "vacinas", id), {
                             dataVac : getDataVac(),
                             nomeVac : getVacina(),
                             doseVac : getDose(),
                             dataProxVac : getDataProxVac(),
-                            urlFoto: getUrlFoto(),
+                            urlFoto: url,
                             pathFoto: getPathFoto()
                         })
                             .then(() => {
@@ -112,17 +116,20 @@
                             .catch((error) => {
                                 console.log("Erro ao atualizar o documento: " + error)
                             })
+                        })    
                     })
                     .catch((error) => {
                         console.log("Erro ao enviar arquivo: " + error)
                     })
             } else {
+                getDownloadURL(ref(storage, getPathFoto()))
+                .then((url) => {
                 updateDoc(doc(db, "vacinas", id), {
                     dataVac : getDataVac(),
                     nomeVac : getVacina(),
                     doseVac : getDose(),
                     dataProxVac : getDataProxVac(),
-                    urlFoto: getUrlFoto(),
+                    urlFoto: url,
                     pathFoto: getPathFoto()
                 })
                     .then(() => {
@@ -131,6 +138,7 @@
                     .catch((error) => {
                         console.log("Erro ao atualizar o documento: " + error)
                     })
+                })     
             }
         }
 
@@ -156,6 +164,7 @@
 
             const id = new URLSearchParams(window.location.search).get('id')
             
+            
 
             if (id) {
 
@@ -168,10 +177,13 @@
                         setUrlFoto(documento.data().urlFoto)
                         setPathFoto(documento.data().pathFoto)
                     })
+                    
                     .catch((error) => {
                         console.log("Erro ao recuperar o documento: " + error)
                     })
-                }
+            }
+
+            console.log("URL:" + getUrlFoto())
 
             const botaoMV = document.getElementById("minhaVac") //captura do elemento html
 
@@ -203,6 +215,10 @@
 
             document.getElementById("confirma").addEventListener('click', () => { deletarVacina(id) })
         }
+
+        document.getElementById("compvac").addEventListener('change', function (event) {
+                file = event.target.files[0]
+            })
     
 
     </script>
