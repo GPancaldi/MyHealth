@@ -115,6 +115,11 @@
                 window.location.href = "Entrar.html"
             })
 
+            document.getElementById("buscarVacina").addEventListener('keyup', () => {
+                const searchString = document.getElementById("buscarVacina").value.trim()
+                showCardsVacinas(listaVacinas.filter(vacinas => vacinas.nomeVac.includes(searchString)))
+            })
+
             carregarVacinas()
         }
 
@@ -136,7 +141,7 @@
     </header>
 
     <div class="flex-search">
-        <input type="search" name="" id="" placeholder="Pesquisar vacina">
+        <input type="search" name="" id="buscarVacina" placeholder="Pesquisar vacina">
         <button class="search-button" type="submit">
             <i class="fa fa-search"></i>
           </button>
