@@ -52,14 +52,6 @@
         const getDataProxVac = () => {
             return document.getElementById("proxvac").value
             
-
-            /*dose = getDose();
-            if(dose == "Dose unica"){
-               return 'Não há próxima dose'
-            }
-            else{
-                return document.getElementById("proxVac").value
-            }*/
         }
 
         const getPathFoto = () => {
@@ -71,6 +63,10 @@
             
         }
 
+
+        // SETTERS
+
+        
         const setDataVac = (dataVac) => {
             document.getElementById("datavac").value = dataVac
         }
@@ -96,14 +92,6 @@
         const setPathFoto = (caminho) => {
             pathFoto = caminho
         }
-
-
-        const uid = () => {
-            const id = Date.now().toString(16) + Math.random().toString(16)
-            return id.replace(/\./g, '')
-        }    
-
-        
     
 
         const editarVacina = (id) => {

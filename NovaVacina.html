@@ -47,17 +47,15 @@
             return document.querySelector('input[name = "radiocheck"]:checked').value
         }
     
-    const getDataProxVac = () => {
-        return document.getElementById("proxVac").value
-
-
-        /*dose = getDose();
-        if(dose == "Dose unica"){
-           return 'Não há próxima dose'
-        }
-        else{
-            return document.getElementById("proxVac").value
-        }*/
+    const getDataProxVac = () => {       
+            const dose = getDose();
+            
+            if(dose == "Dose unica"){
+            return 'Não há próxima dose'
+            }
+            else{
+                return document.getElementById("proxVac").value
+            }
         }
 
         const getPathFoto = () => {
