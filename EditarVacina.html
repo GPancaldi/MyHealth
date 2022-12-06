@@ -14,9 +14,20 @@
     <script type="module">
 
 
-    import {db, storage} from './config/firebase.js'
+    import {db, storage, app, auth} from './config/firebase.js'
     import { addDoc, collection, getDoc, doc, updateDoc, deleteDoc } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js";
     import { uploadBytes, ref, getDownloadURL, deleteObject } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
+    import { signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+    auth.onAuthStateChanged( function(user) {
+                if(!auth.currentUser)
+                    window.location.href = "Entrar.html"
+            })
+
+            const deslogar = () => {
+                signOut(auth)
+            }
+
 
 
         var file = null;
@@ -191,11 +202,7 @@
                 window.location.href = "Inicial.html"
             })
 
-            const botaoLogout = document.getElementById("logout") //captura do elemento html
-
-            botaoLogout.addEventListener("click", () => {
-                window.location.href = "Entrar.html"
-            })
+            document.getElementById("logout").addEventListener('click', deslogar)
 
             
             document.getElementById("salvat").addEventListener('click', () => { editarVacina(id) })

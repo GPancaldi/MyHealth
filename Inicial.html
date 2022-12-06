@@ -13,9 +13,19 @@
 
     <script type="module">
 
-
-        import {db} from './config/firebase.js'
+        import {db, app, auth} from './config/firebase.js'
         import {query, collection, onSnapshot, where} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
+        import { signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+
+        auth.onAuthStateChanged( function(user) {
+                if(!auth.currentUser)
+                    window.location.href = "Entrar.html"
+            })
+
+            const deslogar = () => {
+                signOut(auth)
+            }
 
         const novaVacina = () =>{
             window.location.href = "NovaVacina.html"
@@ -109,11 +119,9 @@
             })
 
 
-            const botaoLogout = document.getElementById("logout") //captura do elemento html
+            document.getElementById("logout").addEventListener('click', deslogar)
 
-            botaoLogout.addEventListener("click", () => {
-                window.location.href = "Entrar.html"
-            })
+            
 
             document.getElementById("buscarVacina").addEventListener('keyup', () => {
                 const searchString = document.getElementById("buscarVacina").value.trim()
